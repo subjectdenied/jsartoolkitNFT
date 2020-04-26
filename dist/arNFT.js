@@ -67,7 +67,7 @@ ARnft.prototype.init = function (markerUrl, stats) {
         video.addEventListener('loadedmetadata', function () {
           video.play();
 
-        m_obj = start(
+          start(
             container,
             markerUrl,
             video,
@@ -87,10 +87,8 @@ ARnft.prototype.init = function (markerUrl, stats) {
             root,
             configData
           )
-          console.log(m_obj);
-          this.obj = m_obj;
-          console.log(this.obj);
         });
+
       }).catch(function (err) {
         console.log(err.name + ': ' + err.message);
       });
@@ -100,7 +98,6 @@ ARnft.prototype.init = function (markerUrl, stats) {
 
 ARnft.prototype.add = function (obj) {
   var root = this.root;
-  var obj = getObj();
   console.log('obj inside add', obj);
   //obj.position.y = (msg.height / msg.dpi * 2.54 * 10)/2.0;
   //obj.position.x = (msg.width / msg.dpi * 2.54 * 10)/2.0;
