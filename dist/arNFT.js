@@ -99,8 +99,12 @@ ARnft.prototype.init = function (markerUrl, stats) {
 ARnft.prototype.add = function (obj) {
   var root = this.root;
   console.log('obj inside add', obj);
-  //obj.position.y = (msg.height / msg.dpi * 2.54 * 10)/2.0;
-  //obj.position.x = (msg.width / msg.dpi * 2.54 * 10)/2.0;
+  document.addEventListener('getNFTData', function (ev) {
+    console.log(ev);
+    var msg = ev.detail;
+    obj.position.y = (msg.height / msg.dpi * 2.54 * 10)/2.0;
+    obj.position.x = (msg.width / msg.dpi * 2.54 * 10)/2.0;
+  })
   root.matrixAutoUpdate = false;
   root.add(obj);
 };
@@ -363,13 +367,19 @@ function process() {
 }; // end of workerRunner() function
 
 
-var world;
+var world, dpi, width, height;
 
 var found = function (msg) {
   if (!msg) {
     world = null;
   } else {
     world = JSON.parse(msg.matrixGL_RH);
+    dpi = JSON.parse(msg.dpi);
+    width = JSON.parse(msg.width);
+    height = JSON.parse(msg.height);
+    console.log(dpi);
+    var dpiEvent = new CustomEvent('getNFTData', {detail: {dpi: dpi, width: width, height: height}})
+    document.dispatchEvent(dpiEvent)
   }
 };
 

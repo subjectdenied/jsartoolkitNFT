@@ -78,13 +78,19 @@ function process() {
 }; // end of workerRunner() function
 
 
-var world;
+var world, dpi, width, height;
 
 var found = function (msg) {
   if (!msg) {
     world = null;
   } else {
     world = JSON.parse(msg.matrixGL_RH);
+    dpi = JSON.parse(msg.dpi);
+    width = JSON.parse(msg.width);
+    height = JSON.parse(msg.height);
+    console.log(dpi);
+    var dpiEvent = new CustomEvent('getNFTData', {detail: {dpi: dpi, width: width, height: height}})
+    document.dispatchEvent(dpiEvent)
   }
 };
 
